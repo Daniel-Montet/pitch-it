@@ -1,12 +1,7 @@
-from flask import Flask,render_template, flash, redirect,url_for
-from forms import Register,Login
-from flask_sqlalchemy import SQLAlchemy
-from models import User, Pitch
-
-app= Flask(__name__) 
-app.config['SECRET_KEY']='fe80d26ee9e9e49b181c65aee655938c'
-app.config['SQLALCHEMY_DATABASE_URI']= 'sqlite:///site.db'
-db = SQLAlchemy(app)
+from flask import render_template, flash, redirect,url_for
+from app.forms import Register,Login
+from app.models import User, Pitch
+from app import app
 
 
 @app.route("/")
@@ -34,8 +29,3 @@ def login():
         return redirect(url_for('home'))
 
     return render_template('login.html', title='login', form=form)
-
- 
-
-if __name__ == "__main__":
-    app.run(debug=True)
