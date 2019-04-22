@@ -2,23 +2,61 @@
 {% import 'macros.html' as macros %}
 {% block content %}
 <div>
-        
-        <article class="media">
-          <img src="{{ url_for('static',filename='images/' + post.author.image_file) }}" alt="" class="rounded-circle">
-          <div class="media-body">
-            <div class="article-metadata">
-              <a href="#" class="mr-2">{{post.author.username}}</a>
-              <small class="text-muted">
-                {{post.date_posted.strftime('%Y-%m-%d')}}
-              </small>
-              <h2>{{ post.title }}</h2>
-              </h2>
-              <p class="article-content">{{ post.content }}</p>
-            </div>
-          </div>
-  
-        </article>
-        
+
+  <article class="media">
+    <img src="{{ url_for('static',filename='images/' + post.author.image_file) }}" alt="" class="rounded-circle">
+    <div class="media-body">
+      <div class="article-metadata">
+        <a href="#" class="mr-2">{{post.author.username}}</a>
+        <small class="text-muted">
+          {{post.date_posted.strftime('%Y-%m-%d')}}
+        </small>
+        {% if post.author == current_user %}
+        <div>
+          <a class="btn btn-secondary btn-sm m-1" href="{{url_for('update_post',post_id=post.id)}}">update</a>
+          <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#modalConfirmDelete">Delete</button>
+        </div>
+        {% endif %}
+        <h2>{{ post.title }}</h2>
+        </h2>
+        <p class="article-content">{{ post.content }}</p>
       </div>
+    </div>
+
+  </article>
+
+</div>
+
+<!--Modal: modalConfirmDelete-->
+<div class="modal fade" id="modalConfirmDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-notify modal-danger" role="document">
+    <!--Content-->
+    <div class="modal-content text-center">
+      <!--Header-->
+      <div class="modal-header d-flex justify-content-center">
+        <p class="heading">Are you sure?</p>
+      </div>
+
+      <!--Body-->
+      <div class="modal-body">
+
+        <i class="fas fa-times fa-4x animated rotateIn"></i>
+
+      </div>
+
+      <!--Footer-->
+      <div class="modal-footer flex-center">
+        <form action="" method="POST">
+        <a href="{{ url_for('delete_post', post_id=post.id) }}" class="btn  btn-outline-danger">Yes</a>
+        <a type="submit" class="btn  btn-danger waves-effect" data-dismiss="modal">No</a>
+        </form>
+      </div>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+<!--Modal: modalConfirmDelete-->
+
 
 {% endblock content %}
