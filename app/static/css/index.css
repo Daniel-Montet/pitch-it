@@ -18,3 +18,12 @@
 
 .form-elegant .modal-body, .form-elegant .modal-footer {
     font-weight: 400; }
+
+#avatar{
+    height: 15rem;
+    width: 15rem;
+}
+
+.jumbotron{
+    margin-top: 2%;
+}
