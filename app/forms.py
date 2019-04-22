@@ -51,7 +51,7 @@ class UpdateAccount(FlaskForm):
             if email:
                 raise ValidationError('Email already taken')
 
-class PostForm(FlaskForm):
-    title = StringField('Username',validators=[DataRequired())])
+class PitchForm(FlaskForm):
+    title = StringField('Title',validators=[DataRequired()])
     content = TextAreaField('Content',validators=[DataRequired()])
     submit = SubmitField('Post')

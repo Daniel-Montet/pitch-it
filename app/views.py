@@ -1,7 +1,7 @@
 import secrets
 import os
 from flask import render_template, flash, redirect,url_for, request
-from app.forms import Register,Login,UpdateAccount, PostForm
+from app.forms import Register,Login,UpdateAccount, PitchForm
 from app.models import User, Pitch
 from app import app,db,bcrypt
 from flask_login import login_user, current_user, logout_user,login_required
@@ -10,8 +10,9 @@ from flask_login import login_user, current_user, logout_user,login_required
 @app.route("/",methods=['GET','POST'])
 @app.route("/home",methods=['GET','POST'])
 def home():
-    if current_user.is_authenticated:
-        return redirect(url_for('circles'))
+    posts = Pitch.query.all()
+    # if current_user.is_authenticated:
+    #     return redirect(url_for('circles'))
     registerForm = Register()
     if registerForm.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(registerForm.password.data).decode('utf-8')
@@ -35,7 +36,7 @@ def home():
             flash('Login Unsuccessful. Please check email and password','danger')
     #form=form, registerForm=registerForm
 
-    return render_template('home.html', title='login',form=form, registerForm=registerForm )
+    return render_template('home.html', title='login',form=form, registerForm=registerForm ,posts=posts)
 
 @app.route("/circle",methods=['GET','POST'])
 def circles():
@@ -111,5 +112,16 @@ def account():
 @app.route("/post/new",methods=['GET','POST'])
 @login_required
 def new_post():
-    form = PostForm()
-    return return render_template('create_post.html', title='New Post',form=form) 
+    form = PitchForm()
+    if form.validate_on_submit():
+        flash('Your post has been created!','success')
+        pitch = Pitch(title = form.title.data, content= form.content.data, author = current_user)
+        db.session.add(pitch)
+        db.session.commit()
+        return redirect(url_for('home'))
+    return render_template('create_post.html', title='New Post',form=form) 
+
+@app.route("/post/<int:post_id>",methods=['GET','POST'])
+def post(post_id):
+    post = Pitch.query.get_or_404(post_id)
+    return render_template('post.html',title = post.title, post=post)

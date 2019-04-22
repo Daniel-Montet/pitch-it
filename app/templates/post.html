@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% import 'macros.html' as macros %}
+{% block content %}
+<div>
+        
+        <article class="media">
+          <img src="{{ url_for('static',filename='images/' + post.author.image_file) }}" alt="" class="rounded-circle">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a href="#" class="mr-2">{{post.author.username}}</a>
+              <small class="text-muted">
+                {{post.date_posted.strftime('%Y-%m-%d')}}
+              </small>
+              <h2>{{ post.title }}</h2>
+              </h2>
+              <p class="article-content">{{ post.content }}</p>
+            </div>
+          </div>
+  
+        </article>
+        
+      </div>
+
+{% endblock content %}

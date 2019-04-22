@@ -21,7 +21,7 @@
 
     <a class="btn btn-primary btn-lg" role="button">Learn more</a>
 
-    <div>
+    <!-- <div>
         <form method="POST" action="" enctype="multipart/form-data">
             {{ form.hidden_tag() }}
             <fieldset class="form-group">
@@ -62,8 +62,8 @@
                 {{ form.submit(class="btn btn-outline-info") }}
             </div>
         </form>
-    </div>
-    <!-- <div class="modal fade" id="modalRegisterForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    </div> -->
+    <div class="modal fade" id="modalRegisterForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -73,7 +73,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form method="POST" action="" enctype="multipart/form-data"></form>
+                <form method="POST" action="/account" enctype="multipart/form-data"></form>
                 <div class="modal-body mx-3">
                     
                         <div class="md-form mb-5">
@@ -90,19 +90,19 @@
                                 {{form.picture(class ='form-control-file')}}
                         </div>
                         <div class="modal-footer d-flex justify-content-center">
-                            <!-- <button type="submit" class="btn btn-deep-orange">Save</button> -->
-                            <!-- {{ macros.render_field(form.submit, label_visible=false) }}
+                            <button type="submit" class="btn btn-deep-orange">Save</button>
+                            {{ macros.render_field(form.submit, label_visible=false) }}
                         </div>
                 </div>
                 
                     </form>
             </div>
         </div>
-    </div> -->
+    </div> 
 
-    <!-- <div class="text-center">
+     <div class="text-center">
         <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalRegisterForm">Launch
             Modal Register Form</a>
-    </div> --> 
-</div>
+    </div> 
+</div> 
 {% endblock content %}
