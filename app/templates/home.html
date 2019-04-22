@@ -1,9 +1,9 @@
 {% extends "layout.html" %}
-
+{% import 'macros.html' as macros %}
 {% block content %}
 <h1>Home</h1>
 
-    {% with messages = get_flashed_messages(with_categories=true) %}
+   {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
             {% for category,message in messages%}
                 <div class="alert alert-{{ category }}">
@@ -11,6 +11,114 @@
                 </div>
             {% endfor %}
         {% endif %}
-    {% endwith %}
+    {% endwith %} 
+    
 
+
+
+    <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header text-center">
+            <h4 class="modal-title w-100 font-weight-bold">Sign in</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                {% for category,message in messages%}
+                <div class="alert alert-{{ category }}">
+                    {{message}}
+                </div>
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+          <div class="modal-body mx-3">
+            <div class="md-form mb-5">
+              <i class="fas fa-envelope prefix grey-text"></i>
+               {{ macros.render_field(form.email, label_visible=false, placeholder='Email', type='email') }}
+            </div>
+    
+            <div class="md-form mb-4">
+              <i class="fas fa-lock prefix grey-text"></i>
+              {{ macros.render_field(form.password, label_visible=false, placeholder='Password', type='password') }}
+              <p class="font-small blue-text d-flex justify-content-end">Forgot <a href="#" class="blue-text ml-1">
+                    Password?</a></p>
+            </div>
+    
+          </div>
+          <div class="modal-footer d-flex justify-content-center">
+            {{ form.submit(class="btn blue-gradient btn-block btn-rounded z-depth-1a") }}
+            
+          </div>
+        </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal -->
+<div class="modal fade" id="elegantModalForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+aria-hidden="true">
+<div class="modal-dialog" role="document">
+ <!--Content-->
+ <div class="modal-content form-elegant">
+   <!--Header-->
+   <div class="modal-header text-center">
+     <h3 class="modal-title w-100 dark-grey-text font-weight-bold my-3" id="myModalLabel"><strong>Sign Up</strong></h3>
+     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+       <span aria-hidden="true">&times;</span>
+     </button>
+   </div>
+   <form method="POST" action="">
+         {{ registerForm.hidden_tag() }}
+   <!--Body-->
+   <div class="modal-body mx-4">
+     <!--Body-->
+     <div class="md-form mb-5">
+             {{ macros.render_field(registerForm.username, label_visible=false, placeholder='Username', type='text') }}
+     </div>
+
+     <div class="md-form pb-3">
+             {{ macros.render_field(registerForm.email, label_visible=false, placeholder='Your Email', type='email') }}
+
+     </div>
+     <div class="md-form pb-3">
+             {{ macros.render_field(registerForm.password, label_visible=false, placeholder='Choose password', type='password') }}
+     </div>
+     <div class="md-form pb-3">
+             {{ macros.render_field(registerForm.confirm_password, label_visible=false, placeholder='Confirm Password', type='password') }}
+     </div>
+
+     <div class="text-center mb-3">
+             {{ registerForm.submit(class="btn blue-gradient btn-block btn-rounded z-depth-1a") }}
+     </div>
+     <p class="font-small dark-grey-text text-right d-flex justify-content-center mb-3 pt-2"> or Sign in
+       with:</p>
+
+     <div class="row my-3 d-flex justify-content-center">
+       <!--Facebook-->
+       <button type="button" class="btn btn-white btn-rounded mr-md-3 z-depth-1a"><i class="fab fa-facebook-f text-center"></i></button>
+       <!--Twitter-->
+       <button type="button" class="btn btn-white btn-rounded mr-md-3 z-depth-1a"><i class="fab fa-twitter"></i></button>
+       <!--Google +-->
+       <button type="button" class="btn btn-white btn-rounded z-depth-1a"><i class="fab fa-google-plus-g"></i></button>
+     </div>
+   </div>
+ </form>
+   <!--Footer-->
+   <div class="modal-footer mx-5 pt-3 mb-1">
+     <p class="font-small grey-text d-flex justify-content-end">Already Have an Account? <a href="#" class="blue-text ml-1" data-toggle="modal" data-target="#modalLoginForm" data-dismiss="modal">
+         Sign In</a></p>
+   </div>
+ </div>
+ <!--/.Content-->
+</div>
+</div>
+<!-- Modal -->
+
+    
 {% endblock content %}

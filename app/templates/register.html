@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-
+{% import 'macros.html' as macros %}
 {% block content %}
 <div>
     <form method="POST" action="">
@@ -9,7 +9,7 @@
             <div class="form-group">
                 {{ form.username.label(class="form-control-label") }}
                 {% if  form.username.errors %}
-                {{ form.username(class="form-control form-control is-ivalid") }}
+                {{ form.username(class="form-control form-control is-invalid") }}
                 <div class="invalid-feedback">
                     {% for error in form.username.errors %}
                     <span>{{ error }}</span>
@@ -23,7 +23,7 @@
             <div class="form-group">
                 {{ form.email.label(class="form-control-label") }}
                 {% if  form.email.errors %}
-                {{ form.email(class="form-control form-control is-ivalid") }}
+                {{ form.email(class="form-control form-control is-invalid") }}
                 <div class="invalid-feedback">
                     {% for error in form.email.errors %}
                     <span>{{ error }}</span>
@@ -36,7 +36,7 @@
             <div class="form-group">
                 {{ form.password.label(class="form-control-label") }}
                 {% if  form.password.errors %}
-                {{ form.password(class="form-control form-control is-ivalid") }}
+                {{ form.password(class="form-control form-control is-invalid") }}
                 <div class="invalid-feedback">
                     {% for error in form.password.errors %}
                     <span>{{ error }}</span>
@@ -50,7 +50,7 @@
             <div class="form-group">
                 {{ form.confirm_password.label(class="form-control-label") }}
                 {% if  form.confirm_password.errors %}
-                {{ form.confirm_password(class="form-control form-control is-ivalid") }}
+                {{ form.confirm_password(class="form-control form-control is-invalid") }}
                 <div class="invalid-feedback">
                     {% for error in form.confirm_password.errors %}
                     <span>{{ error }}</span>
@@ -69,7 +69,78 @@
 </div>
 <div class="border-top pt-3">
     <small class="text-muted">
-        Already Have an Account? <a class="ml-2" href="{{url_for('login')}}">Sign In</a>
+        Already Have an Account? <a class="ml-2" href="{{url_for('home')}}">Sign In</a>
     </small>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="elegantModalForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <!--Content-->
+    <div class="modal-content form-elegant">
+      <!--Header-->
+      <div class="modal-header text-center">
+        <h3 class="modal-title w-100 dark-grey-text font-weight-bold my-3" id="myModalLabel"><strong>Sign Up</strong></h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <small class="text-muted">
+            Already Have an Account? <a class="ml-2" href="{{url_for('home')}}">Sign In</a>
+        </small>
+      <form method="POST" action="">
+            {{ form.hidden_tag() }}
+      <!--Body-->
+      <div class="modal-body mx-4">
+        <!--Body-->
+        <div class="md-form mb-5">
+                {{ macros.render_field(form.username, label_visible=false, placeholder='Username', type='text') }}
+        </div>
+
+        <div class="md-form pb-3">
+                {{ macros.render_field(form.email, label_visible=false, placeholder='Your Email', type='email') }}
+          <p class="font-small blue-text d-flex justify-content-end">Forgot <a href="#" class="blue-text ml-1">
+              Password?</a></p>
+        </div>
+        <div class="md-form pb-3">
+                {{ macros.render_field(form.password, label_visible=false, placeholder='Choose password', type='password') }}
+          <p class="font-small blue-text d-flex justify-content-end">Forgot <a href="#" class="blue-text ml-1">
+              Password?</a></p>
+        </div>
+        <div class="md-form pb-3">
+                {{ macros.render_field(form.confirm_password, label_visible=false, placeholder='Confirm Password', type='password') }}
+        </div>
+
+        <div class="text-center mb-3">
+          <button type="button" class="btn blue-gradient btn-block btn-rounded z-depth-1a">Sign Up</button>
+        </div>
+        <p class="font-small dark-grey-text text-right d-flex justify-content-center mb-3 pt-2"> or Sign in
+          with:</p>
+
+        <div class="row my-3 d-flex justify-content-center">
+          <!--Facebook-->
+          <button type="button" class="btn btn-white btn-rounded mr-md-3 z-depth-1a"><i class="fab fa-facebook-f text-center"></i></button>
+          <!--Twitter-->
+          <button type="button" class="btn btn-white btn-rounded mr-md-3 z-depth-1a"><i class="fab fa-twitter"></i></button>
+          <!--Google +-->
+          <button type="button" class="btn btn-white btn-rounded z-depth-1a"><i class="fab fa-google-plus-g"></i></button>
+        </div>
+      </div>
+    </form>
+      <!--Footer-->
+      <div class="modal-footer mx-5 pt-3 mb-1">
+        <p class="font-small grey-text d-flex justify-content-end">Not a member? <a href="#" class="blue-text ml-1">
+            Sign Up</a></p>
+      </div>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+<!-- Modal -->
+
+<div class="text-center">
+  <a href="" class="btn btn-default btn-rounded" data-toggle="modal" data-target="#elegantModalForm">Launch
+    modal Login Form</a>
 </div>
 {% endblock content %}

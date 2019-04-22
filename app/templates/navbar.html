@@ -19,13 +19,13 @@
             </li>
             {% else %}
             <li class="nav-item">
-                <a class="nav-link" href="{{url_for('register')}}">
+                <a class="nav-link" data-toggle="modal" data-target="#elegantModalForm">
                     Register
                     <!--<span class="sr-only"></span>--> 
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{url_for('login')}}">
+                <a class="nav-link"  data-toggle="modal" data-target="#modalLoginForm">
                     Login
                 </a>
             </li>

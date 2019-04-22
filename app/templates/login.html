@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-
+{% import 'macros.html' as macros %}
 {% block content %}
 <div>
     <form method="POST" action="">
@@ -55,5 +55,41 @@
             <a href="#" Forgot Password>Forgot Password</a>
         </small>
     </form>
+</div>
+
+<div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Sign in</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form method="POST" action="">
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <i class="fas fa-envelope prefix grey-text"></i>
+           {{ macros.render_field(form.email, label_visible=false, placeholder='Email', type='email') }}
+        </div>
+
+        <div class="md-form mb-4">
+          <i class="fas fa-lock prefix grey-text"></i>
+          {{ macros.render_field(form.password, label_visible=false, placeholder='Password', type='email') }}
+        </div>
+
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        {{ form.submit(class="btn btn-outline-info") }}
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+
+<div class="text-center">
+  <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalLoginForm">Launch
+    Modal Login Form</a>
 </div>
 {% endblock content %}
