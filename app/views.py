@@ -87,10 +87,19 @@ def new_post():
     form = PostForm()
     if form.validate_on_submit():
         flash('Your post has been created!','success')
-        post = Pitch(title = form.title.data, content= form.content.data, author = current_user)
-        db.session.add(post)
-        db.session.commit()
-        return redirect(url_for('home'))
+        hashtag=''
+        hashtags= form.content.data
+        print(hashtags)
+        newstr= hashtags.split()
+        for char in newstr:
+            if char.startswith("#"):
+                hashtag=char.strip("#")
+                print(hashtag)
+                post = Pitch(title = form.title.data, content= form.content.data, author = current_user,hashtags=hashtag)
+                db.session.add(post)
+                db.session.commit()
+                return redirect(url_for('home'))
+        
     return render_template('create_post.html', title='New Post',form=form,legend='New Post') 
 
 @app.route("/post/<int:post_id>",methods=['GET','POST'])

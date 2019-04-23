@@ -41,6 +41,7 @@ class Pitch(db.Model):
     # upvote = db.Column(db.Integer)
     # downvote = db.Column(db.Integer)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable= False)
+    hashtags = db.Column(db.String(100))
     #comments = db.relationship('Comment', backref='article', lazy=True)
 
 
@@ -51,7 +52,7 @@ class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     body = db.Column(db.String(100), nullable=False)
     timestamp = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    post_id = db.Column(db.Integer, nullable=False)
+    #post_id = db.Column(db.Integer, nullable=False)
     post_id = db.Column(db.Integer, db.ForeignKey('pitch.id'), nullable= False)
     
     def __repr__(self):

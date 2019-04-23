@@ -23,8 +23,8 @@
     height: 3rem;
     width: 3rem;
     position: top-left;
-    margin-top: -15%;
-    margin-left: -2%;
+    margin-top: -10%;
+    margin-left: -5%;
     z-index: 1;
 }
 
@@ -62,4 +62,9 @@
 }
 #contentdiv{
   margin-left: 1%;
+}
+
+#postintro{
+  margin-left: -2%;
+  margin-top: -10%;
 }
