@@ -2,6 +2,16 @@
 {% import 'macros.html' as macros %}
 {% block content %}
 <div>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category,message in messages%}
+            <div class="alert alert-{{ category }}">
+                {{message}}
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
 
   <article class="media">
     <img src="{{ url_for('static',filename='images/' + post.author.image_file) }}" alt="" class="rounded-circle">
@@ -21,8 +31,32 @@
         </h2>
         <p class="article-content">{{ post.content }}</p>
       </div>
+      {% for comment in comments %}
+      {% if comment.post_id == post.id %}
+      <p>{{comment.body}}</p>
+      {% endif%}
+      {% endfor %}
     </div>
-
+    <form action="" method="POST">
+        {{ review.hidden_tag() }}
+        <div class="form-group">
+            {{ review.comment.label(class="form-control-label") }}
+            {% if  review.comment.errors %}
+            {{ review.comment(class="form-control form-control is-invalid") }}
+            <div class="invalid-feedback">
+                {% for error in review.comment.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div> 
+            {% else %}
+            {{ review.comment(class="form-control form-control") }}
+            {% endif %} 
+        </div>
+        <div class="form-group">
+            {{ review.submit(class="btn blue-gradient btn-block btn-rounded z-depth-1a") }}
+        </div>
+    </form>
+    
   </article>
 
 </div>

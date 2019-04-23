@@ -20,10 +20,46 @@
     font-weight: 400; }
 
 #avatar{
-    height: 15rem;
-    width: 15rem;
+    height: 3rem;
+    width: 3rem;
+    position: top-left;
+    margin-top: -15%;
+    margin-left: -2%;
+    z-index: 1;
 }
 
 .jumbotron{
     margin-top: 2%;
+}
+
+#homejumbotron{
+  margin-top: 1%;
+  width: 35rem;
+}
+
+#commentjumbotron{
+
+  width: 35rem;
+}
+
+#homepagecard{
+  margin-top: 1%;
+  width: 10rem;
+  height: 20rem;
+}
+
+#homepagecardimg{
+  height: 5rem;
+  width: 5rem;
+  margin-top: 25%;
+  
+}
+/* .card-body{
+  margin-top: 25%;
+} */
+#homepagecardimagediv{
+  margin-top: 5%;
+}
+#contentdiv{
+  margin-left: 1%;
 }

@@ -1,16 +1,18 @@
 import secrets
 import os
 from flask import render_template, flash, redirect,url_for, request, abort
-from app.forms import Register,Login,UpdateAccount, PostForm
-from app.models import User, Pitch
+from app.forms import Register,Login,UpdateAccount, PostForm, CommentForm
+from app.models import User, Pitch, Comment
 from app import app,db,bcrypt
 from flask_login import login_user, current_user, logout_user,login_required
-
+from .email import mail_message
 
 @app.route("/",methods=['GET','POST'])
 @app.route("/home",methods=['GET','POST'])
 def home():
     posts = Pitch.query.all()
+    comments = Comment.query.all()
+    
     # if current_user.is_authenticated:
     #     return redirect(url_for('circles'))
     registerForm = Register()
@@ -20,6 +22,7 @@ def home():
         db.session.add(user)
         db.session.commit()
         flash(f'Your account has been created! You are now able to login!','success')
+        mail_message("Welcome to watchlist","templates/email/welcome_user",user.email,user=user)
         return redirect(url_for('home'))
     # else:
     #     flash('Registration Unsuccessful. Details you entered are already taken','danger')
@@ -36,7 +39,7 @@ def home():
             flash('Login Unsuccessful. Please check email and password','danger')
     #form=form, registerForm=registerForm
 
-    return render_template('home.html', title='login',form=form, registerForm=registerForm ,posts=posts)
+    return render_template('home.html', title='login',form=form, registerForm=registerForm ,posts=posts, comments=comments)
 
 @app.route("/circle",methods=['GET','POST'])
 def circles():
@@ -92,8 +95,16 @@ def new_post():
 
 @app.route("/post/<int:post_id>",methods=['GET','POST'])
 def post(post_id):
+    review= CommentForm()
+    comments = Comment.query.all()
     post = Pitch.query.get_or_404(post_id)
-    return render_template('post.html',title = post.title, post=post )
+    if review.validate_on_submit():
+        comment = Comment(body= review.comment.data,post_id=post.id )
+        db.session.add(comment)
+        db.session.commit()
+        flash('Your post has been created!','success')
+        return redirect(url_for('post',post_id=post.id))
+    return render_template('post.html',title = post.title, post=post,review=review, comments = comments )
 
 @app.route("/post/<int:post_id>/update", methods=['GET','POST'])
 @login_required
@@ -117,40 +128,12 @@ def update_post(post_id):
     form=form,legend='Update Post')
 
 @app.route("/post/<int:post_id>/delete",methods=['GET','POST'])
-def post(post_id):
+def delete_post(post_id):
     post = Pitch.query.get_or_404(post_id)
     if post.author != current_user:
         abort(403)
-    return render_template('post.html',title = post.title, post=post )
-
-# @app.route("/register" ,methods=['GET','POST'])
-# def register():
-#     if current_user.is_authenticated:
-#         return redirect(url_for('circles'))
-#     registerForm = Register()
-#     if registerForm.validate_on_submit():
-#         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-#         user = User(username = form.username.data, email = form.email.data, password = hashed_password)
-#         db.session.add(user)
-#         db.session.commit()
-#         flash(f'Your account has been created! You are now able to login!','success')
-#         return redirect(url_for('home'))
-#     return render_template('register.html', title='Register', registerForm=registerForm)
-
-# @app.route("/login",methods=['GET','POST'])
-# def login():
-#     form = Login()
-#     if current_user.is_authenticated:
-#         return redirect(url_for('home'))
-#     if form.validate_on_submit():
-#         user = User.query.filter_by(email=form.email.data).first()
-#         if user and bcrypt.check_password_hash(user.password,form.password.data):
-#             login_user(user, remember=form.remember.data)
-#             next_page = request.args.get('next')
-#             return redirect(next_page) if next_page else redirect(url_for('circles'))
-        
-#         else:
-#             flash('Login Unsuccessful. Please check email and password','danger')
-
-#     return render_template('login.html', title='login', form=form)
+    db.session.delete(post)
+    db.session.commit()
+    flash('Your post has been deleted!','success')
+    return redirect(url_for('home'))
 
