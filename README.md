@@ -36,6 +36,7 @@ None at the moment
 -   HTML and MDbootstrap for page structure
 -   Flask and python for creation of base files
 -   CSS for styling and visibility of page.
+-   Postgresql database.
 -   Heroku for hosting services
 
 ## Support and contact details
