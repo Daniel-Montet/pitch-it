@@ -54,6 +54,7 @@
   margin-top: 1%;
   width: 10rem;
   height: 20rem;
+  position: sticky;
 }
 
 #homepagecardimg{
