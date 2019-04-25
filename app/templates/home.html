@@ -22,7 +22,7 @@
 
         <!-- Avatar -->
         
-          <img  id="homepagecardimg" src="https://mdbootstrap.com/img/Photos/Avatars/img%20%2810%29.jpg" class="rounded-circle avatar mx-auto white"
+          <img  id="homepagecardimg" src="{{url_for('static',filename='images/' + current_user.image_file)}}" class="rounded-circle avatar mx-auto white"
             alt="woman avatar">
        
 
@@ -50,7 +50,7 @@
       {% for post in posts %}
       <div id="homejumbotron" class="jumbotron">
         <div class="container-fluid">
-          <h4 id="hashtag">Category: {{post.hashtags}}</h4>
+          <small id="hashtag">Category: {{post.hashtags}}</small>
           <div class="row">
             
                 <img id="avatar" src="{{ url_for('static',filename='images/' + post.author.image_file) }}" alt=""

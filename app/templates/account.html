@@ -13,19 +13,18 @@
         {% endif %}
     {% endwith %} 
     <div class="header">
-        <img src="{{image_file}}" id="avatar" class="rounded-circle img-responsive">
+        <img src="{{image_file}}" id="avatar2" class="rounded-circle img-responsive">
     </div>
     <h2 class="h1-responsive">{{current_user.username}}</h2>
     <p class="lead">{{current_user.email}}</p>
     <hr class="my-2">
 
-    <a class="btn btn-primary btn-lg" role="button">Learn more</a>
 
-    <!-- <div>
+    <div>
         <form method="POST" action="" enctype="multipart/form-data">
             {{ form.hidden_tag() }}
             <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Join Today</legend>
+                <legend class="border-bottom mb-4">Update Account</legend>
                 <div class="form-group">
                     {{ form.username.label(class="form-control-label") }}
                     {% if  form.username.errors %}
@@ -62,47 +61,7 @@
                 {{ form.submit(class="btn btn-outline-info") }}
             </div>
         </form>
-    </div> -->
-    <div class="modal fade" id="modalRegisterForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header text-center">
-                    <h4 class="modal-title w-100 font-weight-bold">Account Info</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form method="POST" action="/account" enctype="multipart/form-data"></form>
-                <div class="modal-body mx-3">
-                    
-                        <div class="md-form mb-5">
-                            <i class="fas fa-user prefix grey-text"></i>
-                            {{ macros.render_field(form.username, label_visible=false, placeholder='username', type='text') }}
-                        </div>
-
-
-                        <div class="md-form mb-4">
-                            <i class="fas fa-lock prefix grey-text"></i>
-                            {{ macros.render_field(form.email, label_visible=false, placeholder='Email', type='email') }}
-                        </div>
-                        <div class="md-form mb-4">
-                                {{form.picture(class ='form-control-file')}}
-                        </div>
-                        <div class="modal-footer d-flex justify-content-center">
-                            <button type="submit" class="btn btn-deep-orange">Save</button>
-                            {{ macros.render_field(form.submit, label_visible=false) }}
-                        </div>
-                </div>
-                
-                    </form>
-            </div>
-        </div>
-    </div> 
-
-     <div class="text-center">
-        <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalRegisterForm">Launch
-            Modal Register Form</a>
-    </div> 
+    </div>
+ 
 </div> 
 {% endblock content %}

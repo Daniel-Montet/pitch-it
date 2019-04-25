@@ -27,6 +27,14 @@
     margin-left: -5%;
     z-index: 1;
 }
+#avatar2{
+    height: 5rem;
+    width: 5rem;
+    /* position: top-left; */
+    /* margin-top: -10%;
+    margin-left: -5%; */
+    z-index: 1;
+}
 
 .jumbotron{
     margin-top: 2%;

@@ -7,7 +7,7 @@
             <legend class="border-bottom mb-4">{{ legend }}</legend>
             
             <div class="form-group">
-                {{ form.title.label(class="form-control-label") }}
+                <h5>{{ form.title.label(class="form-control-label") }}</h5>
                 {% if  form.title.errors %}
                 {{ form.title(class="form-control form-control is-invalid") }}
                 <div class="invalid-feedback">
@@ -20,7 +20,8 @@
                 {% endif %} 
             </div>
             <div class="form-group">
-                {{ form.content.label(class="form-control-label") }}
+                <h5>{{ form.content.label(class="form-control-label") }}</h5>
+                <small>To give post a category, enter hashtag e.g. This is a #category post</small>
                 {% if  form.content.errors %}
                 {{ form.content(class="form-control form-control is-invalid") }}
                 <div class="invalid-feedback">
