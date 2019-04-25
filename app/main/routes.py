@@ -14,6 +14,7 @@ main = Blueprint('main',__name__)
 def home():
     posts = Pitch.query.all()
     comments = Comment.query.all()
+    hashtags= Pitch.query.filter_by(hashtags='property').all()
     
     # if current_user.is_authenticated:
     #     return redirect(url_for('circles'))
@@ -41,7 +42,7 @@ def home():
             flash('Login Unsuccessful. Please check email and password','danger')
     #form=form, registerForm=registerForm
 
-    return render_template('home.html', title='login',form=form, registerForm=registerForm ,posts=posts, comments=comments)
+    return render_template('home.html', title='login',form=form, registerForm=registerForm ,posts=posts, comments=comments,hashtags=hashtags)
 
 @main.route("/circle",methods=['GET','POST'])
 def circles():

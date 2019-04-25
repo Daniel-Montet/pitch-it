@@ -84,6 +84,44 @@
       </div>
       {%endfor%}
 
+
+      {% for hashtag in hashtags %}
+      <div id="homejumbotron" class="jumbotron">
+        <div class="container-fluid">
+          <small id="hashtag">Category: {{hashtag.hashtags}}</small>
+          <div class="row">
+            
+                <img id="avatar" src="{{ url_for('static',filename='images/' + hashtag.author.image_file) }}" alt=""
+                class="rounded-circle col-md-2">
+            
+            <div id="postintro" class="col-md-10 ">
+                <a id="authorname" href="#" class="row mr-2">{{hashtag.author.username}}</a>
+              <small class="text-muted row" id="date">
+                {{hashtag.date_posted.strftime('%Y-%m-%d')}}
+              </small>
+              
+            </div>
+          </div>
+        </div>
+        
+        
+          <hr>
+          
+          <a id="title" href="{{url_for('posts.post',post_id=hashtag.id)}}">{{ hashtag.title }}</a>
+        <div class="footer">
+            <p class="article-content">{{ hashtag.content }}</p> 
+        </div>
+        <hr>
+        {% if current_user.is_authenticated %}
+        <a href="{{url_for('posts.post',post_id=hashtag.id)}}"><i class="far fa-comment-alt"></i><small>Leave review</small></i></a> 
+            {% else %}
+            
+         <a href="{{url_for('posts.post',post_id=hashtag.id)}}" data-toggle="modal" data-target="#modalLoginForm"><i class="far fa-comment-alt"></i><small>Leave review</small></i></a> 
+   
+            {% endif %}
+      </div>
+      {%endfor%}
+
     </div>
   </div>
 </div>
