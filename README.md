@@ -29,7 +29,7 @@ The app has both business side logic and front end logic  combined to achieve Re
 | Delete Post|click event |       Deletes Post           |
 ## Known Bugs
 
-None at the moment
+Google welcome emails break the application
 
 ## Technologies Used
 
