@@ -25,7 +25,7 @@ def home():
         db.session.add(user)
         db.session.commit()
         flash(f'Your account has been created! You are now able to login!','success')
-        mail_message("Welcome to watchlist","email/welcome_user",user.email,user=user)
+        mail_message("Welcome to pitchit","email/welcome_user",user.email,user=user)
         return redirect(url_for('main.home'))
     # else:
     #     flash('Registration Unsuccessful. Details you entered are already taken','danger')
